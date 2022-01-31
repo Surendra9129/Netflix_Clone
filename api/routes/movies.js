@@ -55,7 +55,7 @@ const verify=require('../verifyToken')
     
 // get one
 
-router.get('/:id',verify,async(req,res)=>{
+router.get('/find:id',verify,async(req,res)=>{
      try{
        const movie=await Movie.findById(req.params.id)
       res.status(200).json(movie);
@@ -87,6 +87,22 @@ router.get('/:id',verify,async(req,res)=>{
          res.status(500).json(err)
         }
        })
+
+   //get all
+       router.get('/',verify,async(req,res)=>{
+        if(req.user.isAdmin){
+         try{
+           const movies= await Movie.find()
+          res.status(200).json(movies.reverse());
+         }catch(err){
+          res.status(500).json(err)
+         }
+        }
+       
+         else{
+                res.status(403).json('you are not allow')
+            }
+        })
 
 
  module.exports=router;

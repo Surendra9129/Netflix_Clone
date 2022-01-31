@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './listItem.scss'
 import {PlayArrow, Add,ThumbUpOutlined,ThumbDownOutlined} from '@material-ui/icons'
 import { useState } from 'react';
-const ListItem = ({index}) => {
+import axios from 'axios';
+const ListItem = ({index,item}) => {
     const [isHovered,setHovered]=useState(false)
-    const trailer='https://www.youtube.com/watch?v=UPOy2xP3nAQ'
+    const [movie,setMovie]=useState({})
+    useEffect(()=>{
+       const getMovie= async ()=>{
+     try{
+       const res= await axios.get("/movies/find"+item,{
+        headers:{
+            token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjdkOTIzZjY1NTY3OGQzOGFhMTNmMSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MzYzMzAyMiwiZXhwIjoxNjQ0MDY1MDIyfQ.NHYLz36gcLmAnRMYnPnqxY6x5-ym6HngpUxq9tUX1dw'
+        }
+   });
+   setMovie(res.data)
+     }catch(err){
+         console.log(err);
+     }
+    }
+    getMovie();
+},[])
     return (
         <div className='listItem' style={{left:isHovered && index*225+index*2.5}} onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)}>
-            <img src="https://images.pexels.com/photos/4050336/pexels-photo-4050336.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+            <img src={movie.img} alt="" />
             {isHovered && (
                 <>
                     
-                    <iframe src="https://www.hbo.com/game-of-thrones" frameborder="0" ></iframe>
+                    <iframe src={movie.video} frameborder="0" ></iframe>
             <div className='itemInfo'>
                 <div className='icons'>
                  <PlayArrow className='icon'/>
@@ -20,13 +36,12 @@ const ListItem = ({index}) => {
                  <ThumbDownOutlined className='icon'/>
                 </div>
                 <div className='itemInfoTop'>
-                    <span>1 hr 14min</span>
-                    <span className='limit'>+16</span>
-                    <span>1999</span>
+                    <span>{item.duration}</span>
+                    <span className='limit'>+{movie.limit}</span>
+                    <span>{movie.year}</span>
                 </div>
-                <div className='genre'>Action</div>
-                <div className='desc'>Netflix, Inc. is an American subscription streaming service and production company. Launched on August 29, 1997, it offers a library of films and television series through distribution deals as well as its own productions, known as Netflix Originals.
-                </div>
+                <div className='genre'>{movie.genre}</div>
+                <div className='desc'>{movie.desc}</div>
             </div>
             </>
             )}

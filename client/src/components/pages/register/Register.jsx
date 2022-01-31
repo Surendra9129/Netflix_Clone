@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRef } from 'react';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
 import './register.scss'
 const Register = () => {
     const [email,setEmail]=useState("");

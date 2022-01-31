@@ -8,7 +8,7 @@ const Watch = () => {
             <KeyboardBackspaceOutlined />
             home
             </div>
-            <video className='video' autoPlay progress controls src="video/videos.mp4" />
+            <video className='video' autoPlay progress controls src="video/superman.mp4" />
         </div>
     );
 };

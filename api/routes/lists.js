@@ -19,6 +19,7 @@ const verify=require('../verifyToken')
      }
  })
 
+ //delete
  router.delete('/:id',verify,async(req,res)=>{
     if(req.user.isAdmin){
      try{

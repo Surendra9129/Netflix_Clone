@@ -6,7 +6,7 @@ const Featured = ({type}) => {
         <div className='featured'>
             {type && (
                 <div className='category'>
-                    <span>{type==='movie'?'Movies':'Series'}</span>
+                    <span>{type==='movies'?'Movies':'Series'}</span>
                     <select name="genre" id="genre">
                         <option>Genre</option>
                         <option value="adventure">Adventure</option>
@@ -25,7 +25,7 @@ const Featured = ({type}) => {
                     </select>
                 </div>
             )}
-            <img  src="https://images.pexels.com/photos/2240571/pexels-photo-2240571.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+            <img  src="https://images.pexels.com/photos/7991495/pexels-photo-7991495.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
             <div className='info'>
                 <img src="images/netflix.png" alt="" />
                 <span className='desc'>
