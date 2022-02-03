@@ -10,6 +10,7 @@ In this project I have tried to implement authentication and authorization for l
 ## Technology Stack Used 🌟
 #### React
 #### Redux
+#### Express
 #### MongoDB
 #### SCCS and Material-UI
 For storing data I have used mongodb database;.
