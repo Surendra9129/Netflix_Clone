@@ -1,7 +1,26 @@
 import React from 'react';
 import './featured.scss'
 import {PlayArrow,InfoOutlined} from '@material-ui/icons'
+import { useState } from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
 const Featured = ({type}) => {
+    const [content,setContent]=useState({});
+    useEffect(()=>{
+     const getRamdomContent=async()=>{
+         try{
+          const res= await axios.get(`/movies/random?type=${type}`,{
+            headers:{
+                token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjdkOTIzZjY1NTY3OGQzOGFhMTNmMSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MzYzMzAyMiwiZXhwIjoxNjQ0MDY1MDIyfQ.NHYLz36gcLmAnRMYnPnqxY6x5-ym6HngpUxq9tUX1dw'
+            }
+       })
+          setContent(res.data[0 ])
+         }catch(err){
+             console.log(err);
+         }
+     }
+     getRamdomContent();
+    },[type])
     return (
         <div className='featured'>
             {type && (
@@ -25,11 +44,11 @@ const Featured = ({type}) => {
                     </select>
                 </div>
             )}
-            <img  src="https://images.pexels.com/photos/7991495/pexels-photo-7991495.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+            <img  src={content.img} alt="" />
             <div className='info'>
-                <img src="images/netflix.png" alt="" />
+                <img src={content.imgTitle} alt="" />
                 <span className='desc'>
-                Netflix, Inc. is an American subscription streaming service and production company. Launched on August 29, 1997, it offers a library of films and television series through distribution deals as well as its own productions, known as Netflix Originals.
+               {content.desc}
                 </span>
                 <div className='buttons'>
                     <button className='play'>

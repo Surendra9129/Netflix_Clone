@@ -3,6 +3,7 @@ import './listItem.scss'
 import {PlayArrow, Add,ThumbUpOutlined,ThumbDownOutlined} from '@material-ui/icons'
 import { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 const ListItem = ({index,item}) => {
     const [isHovered,setHovered]=useState(false)
     const [movie,setMovie]=useState({})
@@ -22,6 +23,7 @@ const ListItem = ({index,item}) => {
     getMovie();
 },[])
     return (
+        <Link to={{pathname:'/watch',movie:movie}}>
         <div className='listItem' style={{left:isHovered && index*225+index*2.5}} onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)}>
             <img src={movie.img} alt="" />
             {isHovered && (
@@ -46,6 +48,7 @@ const ListItem = ({index,item}) => {
             </>
             )}
         </div>
+        </Link>
     );
 };
 

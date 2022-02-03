@@ -5,21 +5,31 @@ import Home from './components/pages/home/Home';
 import Watch from './components/pages/watch/Watch';
 import Login from './components/pages/login/Login'; 
 import {BrowserRouter as Router,Switch,Route,Redirect} from 'react-router-dom'
+import { AuthContex } from './authContext/AuthContext';
+import { useContext, useState } from 'react';
 function App() {
-  const user=true;
+  const [user,setUser]=useState();
+  // const {user}=useContext(AuthContex)
   return (
     <Router>
     <Switch>
       <Route exact path='/'>
+        {/* <Home></Home> */}
        {user? <Home /> : <Redirect to='/register'/>}
       </Route>
 
+      <Route exact path='/home'>
+        <Home></Home>
+      </Route>
+
+
       <Route path='/register'>
-      {!user? <Register /> : <Redirect to='/'/>}
+      {!user? <Register></Register>:<Redirect to='/'/> }
       </Route>
 
       <Route path='/login'>
-      {!user? <Login /> : <Redirect to='/register'/>}
+        <Login></Login>
+      {/* {user? <Login /> : <Redirect to='/register'/>} */}
       </Route>
      {user && (
        <>

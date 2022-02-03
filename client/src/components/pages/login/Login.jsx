@@ -1,6 +1,19 @@
 import React from 'react';
+import { useContext } from 'react';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { login } from '../../../authContext/apiCalls';
+import { AuthContex } from '../../../authContext/AuthContext';
 import './login.scss'
 const Login = () => {
+    const [email,setEmail]=useState("")
+    const [password,setPassword]=useState("")
+    const {dispatch}=useContext(AuthContex);
+    const history=useHistory();
+    const handleLogin=(e)=>{
+        e.preventDefault()
+        login({email,password}, dispatch)
+    }
     return (
         <div className='Login'>
             <div className='top'>
@@ -11,9 +24,11 @@ const Login = () => {
             <div className='container'>
               <form >
                   <h1>Sign In</h1>
-                  <input type='email' placeholder='Email or phone number' />
-                  <input type="password" name="" id="" placeholder='Password'/>
-                  <button className='loginButton'>Sign In</button>
+                  <input type='email' placeholder='Email or phone number' onChange={(e)=>setEmail(e.target.value)}/>
+                  <input type="password" name="" id="" placeholder='Password' onChange={(e)=>setPassword(e.target.value)}/>
+                  <button className='loginButton' onClick={()=>{
+                      history.push('/home')
+                  }}>Sign In</button>
                   <span>New to Netflix <b>Sign up now.</b></span>
                   <small>
                       This page is protected by Google reCAPTCHA to ensure you,re not a bot. <b>Learn more</b>
